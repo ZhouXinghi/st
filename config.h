@@ -126,17 +126,24 @@ static const char *colorname[] = {
   [256] = "#282a36", 
   [257] = "#f8f8f2",
   [258] = "#1d1f21",
-  [259]= "#c5c8c6",
+  [259] = "#c5c8c6",
+  [260] = "#2e3440", 
+  [261] = "#a244ed"
 };
 
 /*
  * Default colors (colorname index)
-+ * foreground, background, cursor
+ * foreground, background, cursor, reverse cursor, selection
  */
 unsigned int defaultfg = 259;
 unsigned int defaultbg = 258;
 static unsigned int defaultcs = 257;
 static unsigned int defaultrcs = 257;
+unsigned int selectionbg = 260;
+unsigned int selectionfg = 261;  //purple for mouse selection
+/* If 0 use selectionfg as foreground in order to have a uniform foreground-color */
+/* Else if 1 keep original foreground-color of each cell => more colors :) */
+static int ignoreselfg = 0;
 
 /*
  * Colors used, when the specific fg == defaultfg. So in reverse mode this
