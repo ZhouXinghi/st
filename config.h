@@ -94,37 +94,38 @@ char *termname = "st-256color";
 unsigned int tabspaces = 8;
 
 /* bg opacity */
-float alpha = 0.9;
+float alpha = 0.8;
+// float grad_alpha = 0.54; //alpha value that'll change
+// float stat_alpha = 0.46; //constant alpha value that'll get added to grad_alpha
 float grad_alpha = 0.54; //alpha value that'll change
 float stat_alpha = 0.46; //constant alpha value that'll get added to grad_alpha
 
 /* Terminal colors (16 first used in escape sequence) */
 static const char *colorname[] = {
   /* 8 normal colors */
-    [0] = "#323437",
-	[1] = "#ff5454",
-	[2] = "#8cc85f",
-	[3] = "#e3c78a",
-	[4] = "#80a0ff",
-	[5] = "#d183e8",
-	[6] = "#79dac8",
-	[7] = "#a1aab8",
+  [0] = "#000000", /* black   */
+  [1] = "#ff5555", /* red     */
+  [2] = "#50fa7b", /* green   */
+  [3] = "#f1fa8c", /* yellow  */
+  [4] = "#bd93f9", /* blue    */
+  [5] = "#ff79c6", /* magenta */
+  [6] = "#8be9fd", /* cyan    */
+  [7] = "#bbbbbb", /* white   */
 
   /* 8 bright colors */
-	[8] = "#7c8f8f",
-	[9] = "#ff5189",
-	[10] = "#36c692",
-	[11] = "#bfbf97",
-	[12] = "#74b2ff",
-	[13] = "#ae81ff",
-	[14] = "#85dc85",
-	[15] = "#e2637f",
- 
- 	[255] = 0,
+  // [8]  = "#44475a", /* black (for comment  )   */
+  [8] =  "#bd93f9",
+  [9]  = "#ff5555", /* red     */
+  [10] = "#50fa7b", /* green   */
+  [11] = "#f1fa8c", /* yellow  */
+  [12] = "#bd93f9", /* blue    */
+  [13] = "#ff79c6", /* magenta */
+  [14] = "#8be9fd", /* cyan    */
+  [15] = "#ffffff", /* white   */
 
   /* special colors */
-  [256] = "#282a36", 
-  [257] = "#f8f8f2",
+  [256] = "#282a36", /* background */
+  [257] = "#f8f8f2", /* foreground */
   [258] = "#1d1f21",
   [259] = "#c5c8c6",
   [260] = "#2e3440", 
@@ -152,6 +153,23 @@ static int ignoreselfg = 0;
  */
 unsigned int defaultitalic = 7;
 unsigned int defaultunderline = 7;
+
+unsigned int const currentBg = 8, buffSize = 2048;
+/// Enable double / triple click yanking / selection of word / line.
+int const mouseYank = 1, mouseSelect = 0;
+/// [Vim Browse] Colors for search results currently on screen.
+unsigned int const highlightBg = 3, highlightFg = 261;
+char const wDelS[] = "!\"#$%&'()*+,-./:;<=>?@[\\]^`{|}~", wDelL[] = " \t";
+char *nmKeys [] = {              ///< Shortcusts executed in normal mode
+  "R/Building\nN", "r/Building\n", "X/juli@machine\nN", "x/juli@machine\n",
+  "Q?[Leaving vim, starting execution]\n","F/: error:\nN", "f/: error:\n", "DQf"
+};
+unsigned int const amountNmKeys = sizeof(nmKeys) / sizeof(*nmKeys);
+/// Style of the {command, search} string shown in the right corner (y,v,V,/)
+Glyph styleSearch = {' ', ATTR_ITALIC | ATTR_BOLD_FAINT, 7, 16};
+Glyph style[] = {{' ',ATTR_ITALIC|ATTR_FAINT,15,16}, {' ',ATTR_ITALIC,232,11},
+                 {' ', ATTR_ITALIC, 232, 4}, {' ', ATTR_ITALIC, 232, 12}};
+
 /*
  * Default shape of cursor
  * 2: Block ("█")
@@ -219,6 +237,7 @@ static Shortcut shortcuts[] = {
 	{ TERMMOD,              XK_Y,           selpaste,       {.i =  0} },
 	{ ShiftMask,            XK_Insert,      selpaste,       {.i =  0} },
 	{ TERMMOD,              XK_Num_Lock,    numlock,        {.i =  0} },
+	{ MODKEY,               XK_c,           normalMode,     {.i =  0} },
 };
 
 /*
