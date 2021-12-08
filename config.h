@@ -95,8 +95,6 @@ unsigned int tabspaces = 8;
 
 /* bg opacity */
 float alpha = 0.8;
-// float grad_alpha = 0.54; //alpha value that'll change
-// float stat_alpha = 0.46; //constant alpha value that'll get added to grad_alpha
 float grad_alpha = 0.54; //alpha value that'll change
 float stat_alpha = 0.46; //constant alpha value that'll get added to grad_alpha
 
@@ -113,8 +111,8 @@ static const char *colorname[] = {
   [7] = "#bbbbbb", /* white   */
 
   /* 8 bright colors */
-  // [8]  = "#44475a", /* black (for comment  )   */
-  [8] =  "#bd93f9",
+  [8]  = "#44475a", /* black (for comment  )   */
+  //[8] =  "#bd93f9",
   [9]  = "#ff5555", /* red     */
   [10] = "#50fa7b", /* green   */
   [11] = "#f1fa8c", /* yellow  */
@@ -220,7 +218,7 @@ static MouseShortcut mshortcuts[] = {
 };
 
 /* Internal keyboard shortcuts. */
-#define MODKEY Mod1Mask
+#define MODKEY Mod4Mask
 #define TERMMOD (ControlMask|ShiftMask)
 
 static Shortcut shortcuts[] = {
@@ -229,15 +227,16 @@ static Shortcut shortcuts[] = {
 	{ ControlMask,          XK_Print,       toggleprinter,  {.i =  0} },
 	{ ShiftMask,            XK_Print,       printscreen,    {.i =  0} },
 	{ XK_ANY_MOD,           XK_Print,       printsel,       {.i =  0} },
-	{ TERMMOD,              XK_Prior,       zoom,           {.f = +1} },
-	{ TERMMOD,              XK_Next,        zoom,           {.f = -1} },
-	{ TERMMOD,              XK_Home,        zoomreset,      {.f =  0} },
+	{ TERMMOD,              XK_I,       zoom,           {.f = +1} },
+	{ TERMMOD,              XK_O,        zoom,           {.f = -1} },
+	{ TERMMOD,              XK_R,        zoomreset,      {.f =  0} },
 	{ TERMMOD,              XK_C,           clipcopy,       {.i =  0} },
 	{ TERMMOD,              XK_V,           clippaste,      {.i =  0} },
 	{ TERMMOD,              XK_Y,           selpaste,       {.i =  0} },
 	{ ShiftMask,            XK_Insert,      selpaste,       {.i =  0} },
 	{ TERMMOD,              XK_Num_Lock,    numlock,        {.i =  0} },
-	{ MODKEY,               XK_c,           normalMode,     {.i =  0} },
+	// { MODKEY,               XK_c,           normalMode,     {.i =  0} },
+	{ MODKEY,               XK_n,           normalMode,     {.i =  0} },
 };
 
 /*
