@@ -94,11 +94,14 @@ char *termname = "st-256color";
 unsigned int tabspaces = 8;
 
 /* bg opacity */
-float alpha = 0.8;
+float alpha = 1, alphaUnfocused = 0.9;
 // float grad_alpha = 0.54; //alpha value that'll change
 // float stat_alpha = 0.46; //constant alpha value that'll get added to grad_alpha
-float grad_alpha = 0.54; //alpha value that'll change
-float stat_alpha = 0.46; //constant alpha value that'll get added to grad_alpha
+// c = 0 => alpha = set_alpha_value 
+// c = H => alpha = stat_alpha - grad_alpha
+// refer to x.c (made some changes)
+float grad_alpha = 0.6; //alpha value that'll change
+float stat_alpha = 0; //constant alpha value that'll get added to grad_alpha
 
 /* Terminal colors (16 first used in escape sequence) */
 static const char *colorname[] = {
@@ -140,6 +143,7 @@ unsigned int defaultfg = 259;
 unsigned int defaultbg = 258;
 static unsigned int defaultcs = 257;
 static unsigned int defaultrcs = 257;
+unsigned int bg = 258, bgUnfocused = 258;
 unsigned int selectionbg = 260;
 unsigned int selectionfg = 261;  //purple for mouse selection
 /* If 0 use selectionfg as foreground in order to have a uniform foreground-color */
